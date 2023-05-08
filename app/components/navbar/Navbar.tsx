@@ -1,5 +1,6 @@
 'use client'
 
+import Link from "next/link";
 import Container from "../Container";
 import Logo from "./Logo";
 import Search from "./Search";
@@ -17,7 +18,9 @@ const Navbar: React.FC<NavbarProps> = ({currentUser}) => {
 
                 <Container>
                     <div className="flex flex-row items-center justify-between gap-3 md:gap-0">
-                        <Logo />
+                        <Link href='/' >
+                            <Logo />
+                        </Link>
                         <Search />
                         <UserMenu currentUser={currentUser} />
                     </div>
