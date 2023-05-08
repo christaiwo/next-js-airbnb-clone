@@ -2,7 +2,7 @@
 
 import { AiFillGithub } from "react-icons/ai";
 import { FcGoogle } from 'react-icons/fc'
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import useRegisterModal from "@/app/hooks/useRegisterModal";
 import axios from "axios";
@@ -12,10 +12,12 @@ import Input from "../inputs/Input";
 import { toast } from "react-hot-toast";
 import Button from "../Button";
 import { signIn } from 'next-auth/react';
+import useLoginModal from "@/app/hooks/useLoginModal";
 
 
 const RegisterModal = () => {
     const registerModal = useRegisterModal();
+    const loginModal = useLoginModal();
     const [isLoading, setIsLoading] = useState(false);
     // set up form handler
     const {
@@ -45,6 +47,11 @@ const RegisterModal = () => {
         });
     }
 
+    const toggle = useCallback(() => {
+        registerModal.onClose();
+        loginModal.onOpen();
+    }, [loginModal, registerModal])
+
     const bodyContent = (
         <div className="flex flex-col gap-4">
             <Heading title="Welcome to Airbnb" subtitle="Create an account"  />
@@ -67,8 +74,8 @@ const RegisterModal = () => {
                         Already have an account ?
                     </div>
 
-                    <div onClick={registerModal.onClose} className="text-neutral-800 cursor-pointer hover:underline">
-                        Login ?
+                    <div onClick={toggle} className="text-neutral-800 cursor-pointer hover:underline">
+                        Login
                     </div>
                 </div>
             </div>
