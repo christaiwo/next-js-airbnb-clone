@@ -47,7 +47,7 @@ const Modal: React.FC<ModalProps> = ({isOpen, onClose, onSubmit, title, body, fo
     const handleSecondaryAction = useCallback(() => {
         if(disabled || !secondaryAction) return;
 
-
+        secondaryAction();
     },[disabled, secondaryAction])
 
 

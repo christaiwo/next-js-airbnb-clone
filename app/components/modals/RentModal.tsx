@@ -7,6 +7,7 @@ import Heading from "../Heading";
 import { categories } from "../navbar/Categories";
 import CategoryInput from "../inputs/CategoryInput";
 import { FieldValues, useForm } from "react-hook-form";
+import CountrySelect from "../inputs/CountrySelect";
 
 
 enum STEPS {
@@ -15,8 +16,8 @@ enum STEPS {
     INFO = 2,
     IMAGES = 3,
     DESCRIPTION = 4,
-    PRICE = 65
-}
+    PRICE = 5,
+  }
 
 
 const RentModal = () => {
@@ -67,20 +68,21 @@ const RentModal = () => {
     } 
 
     const actionLabel = useMemo(() => {
-        if(step === STEPS.PRICE){
-            return 'Create'
+        if (step === STEPS.PRICE) {
+          return 'Create'
         }
-
+    
         return 'Next'
-    }, [step])
-
+      }, [step]);
+    
     const secondaryActionLabel = useMemo(() => {
-        if(step === STEPS.CATEGORY){
-            return undefined
-        }
+    if (step === STEPS.CATEGORY) {
+        return undefined
+    }
 
-        return 'Back'
-    }, [step]); 
+    return 'Back'
+    }, [step]);
+    
 
 
     let bodyContent = (
@@ -104,11 +106,28 @@ const RentModal = () => {
             </div>
         </div>
     );
+
+    if(step === STEPS.LOCATION){
+        bodyContent = (
+            <div className="flex flex-col gap-8">
+                <Heading 
+                    title="Where is your place located?"
+                    subtitle="Help guest find you"
+                />
+
+                <CountrySelect
+                
+                />
+            </div>
+        );
+    }
+
+
     return (  
         <Modal 
             isOpen={rentModal.isOpen} 
             onClose={rentModal.onClose} 
-            onSubmit={rentModal.onClose}
+            onSubmit={onNext}
             actionLabel={actionLabel} 
             secondaryActionLabel={secondaryActionLabel}
             secondaryAction={step === STEPS.CATEGORY ? undefined : onBack}
