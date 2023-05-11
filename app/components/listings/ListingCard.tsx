@@ -7,6 +7,7 @@ import { useRouter } from "next/navigation";
 import { useCallback, useMemo } from "react";
 import { format } from "date-fns";
 import Image from "next/image";
+import HeartButton from "../HeartButton";
 
 
 
@@ -56,7 +57,7 @@ const ListingCard: React.FC<ListingCardProps> = ({data, reservation, onAction, d
                 <div className="aspect-square w-full relative overflow-hidden rounded-xl">
                     <Image fill src={data.imageSrc} alt="listing" className="object-cover h-full w-full group-hover:scale-110 transition"/> 
                     <div className="absolute top-3 right-3">
-                        
+                        <HeartButton listingId={data.id} currentUser={currentUser} />
                     </div>
                 </div>
             </div>
