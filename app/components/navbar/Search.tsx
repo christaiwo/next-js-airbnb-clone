@@ -23,7 +23,7 @@ const Search = () => {
         }
 
         return 'Anywhere';
-    }, [getByValue]);
+    }, [getByValue, locationValue]);
 
     const durationLabel = useMemo(() => {
         if(startDate && endDate){
