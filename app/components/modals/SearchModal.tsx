@@ -128,7 +128,32 @@ const SearchModal = () => {
             </div>
         );
     }
+    else if(step === STEPS.INFO){
+        bodyContent = (
+            <div className="flex flex-col gap-8">
+                <Heading title="More information?" subtitle="Find your perfect place" />
     
+                <Counter 
+                    title="Guests"
+                    subtitle="How many guest are coming?"
+                    value={guestCount}
+                    onChange={(value) => setGuestCount(value)}
+                />
+                <Counter 
+                    title="Rooms"
+                    subtitle="How many rooms do you nned?"
+                    value={roomCount}
+                    onChange={(value) => setRoomCount(value)}
+                />
+                <Counter 
+                    title="Bathrooms"
+                    subtitle="How many bathrooms do you need?"
+                    value={bathroomCount}
+                    onChange={(value) => setBathroomCount(value)}
+                />
+            </div>
+        );
+    }
 
     return (  
         <Modal
