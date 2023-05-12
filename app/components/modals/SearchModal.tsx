@@ -7,8 +7,11 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { useCallback, useMemo, useState } from "react";
 import { Range } from "react-date-range";
 import dynamic from "next/dynamic";
-import { CountrySelectValue } from "../inputs/CountrySelect";
+import CountrySelect, { CountrySelectValue } from "../inputs/CountrySelect";
 import { formatISO } from "date-fns";
+import Heading from "../Heading";
+import Calendar from "../inputs/Calendar";
+import Counter from "../inputs/Counter";
 
 enum STEPS {
     LOCATION = 0,
@@ -48,7 +51,7 @@ const SearchModal = () => {
 
     const onSubmit = useCallback(async() => {
         if(step !== STEPS.INFO){
-            onNext();
+            return onNext();
         }
 
         let currentQuery = {};
@@ -99,13 +102,32 @@ const SearchModal = () => {
         return 'Back'
     }, [step]);
     
+
+    let bodyContent = (
+        <div className="flex flex-col gap-8">
+            <Heading title="Where do you want to go?" subtitle="Find perfect location" />
+
+            <CountrySelect 
+                value={location}
+                onChange={(value) => setLocation(value as CountrySelectValue)}
+            />
+            <hr />
+            <Map center={location?.latlng}/>
+        </div>
+    );
+
+    
+
     return (  
         <Modal
             isOpen={searchModal.isOpen}
             onClose={searchModal.onClose}
-            onSubmit={searchModal.onOpen}
+            onSubmit={onSubmit}
             title="Filters"
-            actionLabel="Search"
+            actionLabel={actionLabel}
+            secondaryAction={step === STEPS.LOCATION ? undefined : onBack}
+            secondaryActionLabel={secondaryActionLabel}
+            body={bodyContent}
         />
     );
 }
