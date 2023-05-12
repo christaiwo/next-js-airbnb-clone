@@ -14,3 +14,11 @@ html, body, :root{
 .leaflet-top {
   z-index: 0 !important;
 }
+
+.rdrmonth{
+  width: 100% !important;
+}
+
+.rdrCalendarWrapper{
+  width: 100% !important;
+}
